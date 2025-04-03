@@ -26,7 +26,7 @@ const ProductHighlights: React.FC = () => {
       id: "classic",
       title: "Brewlyours Classic",
       tagline: "Classic Instant Coffee | Rich & Aromatic | Smooth & Balanced Flavor | Quick & Easy to Prepare",
-      image: "/lovable-uploads/3fa220da-55e9-45f0-bd8d-30e58bd3b3ef.png",
+      image: "/assets/product-classic.jpg",
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
   ];
