@@ -17,22 +17,22 @@ const Hero: React.FC = () => {
             Truly <span className="text-coffee-accent">Yours</span>
           </h1>
           <p className="text-coffee-beige text-xl md:text-2xl max-w-2xl mx-auto mb-10">
-            Premium instant coffee crafted for those who value quality in every cup
+            Premium instant coffee in multiple varieties, crafted for those who value quality in every cup
           </p>
           
-          <Button 
-            size="lg" 
-            className="bg-coffee-accent hover:bg-coffee-light text-coffee-dark font-medium text-lg px-8 py-6"
-          >
-            <a 
-              href="https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="bg-coffee-accent hover:bg-coffee-light text-coffee-dark font-medium text-lg px-8 py-6"
             >
-              Buy on Amazon
-            </a>
-          </Button>
+              <a 
+                href="#product"
+                className="flex items-center gap-2"
+              >
+                Explore Our Products
+              </a>
+            </Button>
+          </div>
         </AnimatedSection>
       </div>
     </section>
