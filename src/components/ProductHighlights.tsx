@@ -1,84 +1,52 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import AnimatedSection from './AnimatedSection';
-import { Coffee, Check, Star } from 'lucide-react';
-
-const benefits = [
-  {
-    title: "Freshly Roasted",
-    icon: Coffee,
-    description: "Our beans are roasted in small batches and sealed to preserve freshness and aroma."
-  },
-  {
-    title: "Instant Brew",
-    icon: Check,
-    description: "Perfect coffee in seconds - just add hot water and enjoy the full-bodied flavor."
-  },
-  {
-    title: "Natural Energy Boost",
-    icon: Star,
-    description: "Carefully selected beans provide a smooth, consistent energy boost without the crash."
-  }
-];
+import { Check } from 'lucide-react';
 
 const ProductHighlights: React.FC = () => {
+  const benefits = [
+    { title: "Freshly Roasted", description: "We roast in small batches to ensure peak flavor and freshness" },
+    { title: "Instant Brew", description: "Perfect coffee in seconds, anytime and anywhere" },
+    { title: "Natural Energy Boost", description: "Carefully processed to preserve natural caffeine and antioxidants" },
+    { title: "Rich Aroma", description: "The enticing scent of freshly brewed coffee in every cup" },
+    { title: "No Additives", description: "Pure coffee with no artificial ingredients or preservatives" },
+    { title: "Sustainable Sourcing", description: "Supporting ethical farming practices and communities" }
+  ];
+
   return (
-    <section id="product" className="section-padding bg-white">
+    <section id="product" className="bg-coffee-light section-padding">
       <div className="container-wide">
-        <AnimatedSection className="text-center mb-12">
-          <h2 className="h2 text-coffee-dark mb-4">Product Highlights</h2>
-          <p className="subtitle text-coffee-medium max-w-2xl mx-auto">
-            Experience the difference of premium instant coffee crafted with care and expertise.
+        <AnimatedSection>
+          <h2 className="h2 text-center text-coffee-dark mb-4">Premium Instant Coffee</h2>
+          <p className="subtitle text-center max-w-2xl mx-auto mb-16">
+            Experience the rich, aromatic flavor of our signature product
           </p>
-          <div className="h-1 w-20 bg-coffee-medium mx-auto mt-6"></div>
         </AnimatedSection>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-12">
+
+        <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
           <AnimatedSection delay={200}>
-            <div className="relative">
-              <div className="absolute -inset-6 rounded-full bg-coffee-light/10 -z-10"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1695653422259-8a74ffe90401?q=80&w=800" 
-                alt="Brewlyours Coffee Product" 
-                className="rounded-lg shadow-xl w-full aspect-square object-cover"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-coffee-dark text-white rounded-full p-4 shadow-lg">
-                <div className="text-center">
-                  <span className="block font-serif text-xl font-bold">4.8</span>
-                  <div className="flex gap-0.5 text-coffee-accent">
-                    <Star size={14} fill="currentColor" />
-                    <Star size={14} fill="currentColor" />
-                    <Star size={14} fill="currentColor" />
-                    <Star size={14} fill="currentColor" />
-                    <Star size={14} fill="currentColor" className="text-coffee-accent/60" />
-                  </div>
-                  <span className="text-xs block">Amazon Rating</span>
-                </div>
-              </div>
+            <div className="rounded-lg overflow-hidden h-[500px] shadow-xl">
+              <div className="h-full bg-[url('/assets/product.jpg')] bg-cover bg-center"></div>
             </div>
           </AnimatedSection>
           
-          <AnimatedSection delay={400} className="space-y-8">
-            <h3 className="h3 text-coffee-dark">Premium Instant Coffee</h3>
-            <p className="text-coffee-dark/80">
-              Our signature product combines convenience with exceptional quality, setting a new standard for instant coffee. Each jar contains carefully selected coffee beans, processed to preserve their natural flavors and aroma.
-            </p>
-            
-            <div className="grid gap-6 mt-6">
-              {benefits.map((benefit, index) => (
-                <Card key={index} className="border-coffee-light/20 bg-coffee-cream/30">
-                  <CardContent className="p-6 flex gap-4 items-start">
-                    <div className="bg-coffee-medium text-white p-3 rounded-full">
-                      <benefit.icon size={20} />
+          <AnimatedSection delay={400}>
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="bg-coffee-cream/50 p-4 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <span className="bg-coffee-accent rounded-full p-1 mt-1">
+                        <Check size={16} className="text-coffee-dark" />
+                      </span>
+                      <div>
+                        <h4 className="font-bold text-coffee-dark mb-1">{benefit.title}</h4>
+                        <p className="text-sm text-coffee-dark/70">{benefit.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium text-lg text-coffee-dark mb-1">{benefit.title}</h4>
-                      <p className="text-coffee-dark/70">{benefit.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </AnimatedSection>
         </div>

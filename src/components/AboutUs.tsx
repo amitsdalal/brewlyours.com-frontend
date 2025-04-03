@@ -4,37 +4,31 @@ import AnimatedSection from './AnimatedSection';
 
 const AboutUs: React.FC = () => {
   return (
-    <section id="about" className="section-padding bg-coffee-cream">
+    <section id="about" className="bg-coffee-cream section-padding">
       <div className="container-wide">
-        <AnimatedSection className="text-center mb-12">
-          <h2 className="h2 text-coffee-dark mb-4">Our Story</h2>
-          <div className="h-1 w-20 bg-coffee-medium mx-auto"></div>
+        <AnimatedSection>
+          <h2 className="h2 text-center text-coffee-dark mb-12">Our Story</h2>
         </AnimatedSection>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <AnimatedSection delay={200} className="order-2 lg:order-1">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-lg text-coffee-dark/80 mb-4">
-                Brewlyours was born from a simple yet profound belief: that everyone deserves a moment of coffee perfection, regardless of how busy life gets.
-              </p>
-              <p className="text-lg text-coffee-dark/80 mb-4">
-                Our journey began in the coffee fields of South India, where we discovered that instant coffee doesn't have to mean instant compromise. We partnered with local farmers who share our passion for quality and sustainability.
-              </p>
-              <p className="text-lg text-coffee-dark/80 font-medium">
-                Every cup of Brewlyours is a testament to our commitment to excellence – because when something is truly yours, you make it perfect.
-              </p>
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <AnimatedSection delay={200}>
+            <div className="rounded-lg overflow-hidden h-[400px]">
+              <div className="h-full bg-[url('/assets/about-us.jpg')] bg-cover bg-center"></div>
             </div>
           </AnimatedSection>
           
-          <AnimatedSection delay={400} className="order-1 lg:order-2">
-            <div className="relative">
-              <div className="absolute -inset-4 rounded-xl bg-coffee-medium/10 -z-10 transform -rotate-3"></div>
-              <div className="absolute -inset-4 rounded-xl bg-coffee-accent/10 -z-20 transform rotate-3"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1500673922987-e212871fec22?q=80&w=800" 
-                alt="Coffee plantation" 
-                className="rounded-lg shadow-xl w-full aspect-video object-cover"
-              />
+          <AnimatedSection delay={400}>
+            <div className="space-y-6">
+              <h3 className="h3 text-coffee-dark">Brewed with Passion</h3>
+              <p className="text-coffee-dark/80 leading-relaxed">
+                Brewlyours was born from a simple belief: everyone deserves an exceptional coffee experience, regardless of how busy their day might be. Our journey began in the coffee plantations of Southern India, where we discovered that instant coffee could be just as rich and satisfying as freshly brewed.
+              </p>
+              <p className="text-coffee-dark/80 leading-relaxed">
+                We meticulously select premium Arabica and Robusta beans, roast them to perfection, and transform them into an instant coffee that maintains the complex flavors and aromas of a café-quality brew. Each cup of Brewlyours is crafted to be truly yours – a moment of indulgence in your daily routine.
+              </p>
+              <p className="font-medium text-coffee-dark italic">
+                "Because your coffee moment should be as unique as you are."
+              </p>
             </div>
           </AnimatedSection>
         </div>
