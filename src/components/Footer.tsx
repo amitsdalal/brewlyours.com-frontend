@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <div className="container-wide">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
-            <Coffee size={24} className="text-coffee-accent" />
+            <img src="/logo.png" alt="Brewlyours Logo" className="h-8" />
             <span className="font-serif text-xl font-medium">Brewlyours</span>
           </div>
           

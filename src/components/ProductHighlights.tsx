@@ -44,7 +44,7 @@ const ProductHighlights: React.FC = () => {
       tagline: "Classic Instant Coffee | Rich & Aromatic | Smooth & Balanced Flavor | Quick & Easy to Prepare",
       images: [
         { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" },
-        { src: "/lovable-uploads/0abdeb94-b549-4524-b46e-7f20500e9a38.png", alt: "Brewlyours Logo" }
+        { src: "/logo.png", alt: "Brewlyours Logo" }
       ],
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
@@ -78,7 +78,7 @@ const ProductHighlights: React.FC = () => {
         <AnimatedSection>
           <div className="text-center mb-8">
             <img 
-              src="/lovable-uploads/0abdeb94-b549-4524-b46e-7f20500e9a38.png" 
+              src="/logo.png" 
               alt="Brewlyours Logo" 
               className="mx-auto h-24 mb-4"
             />

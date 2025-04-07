@@ -6,7 +6,6 @@ import ProductHighlights from '@/components/ProductHighlights';
 import FutureReady from '@/components/FutureReady';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-import { Coffee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Index: React.FC = () => {
@@ -46,7 +45,11 @@ const Index: React.FC = () => {
       >
         <div className="container-wide flex justify-between items-center">
           <a href="#" className="flex items-center gap-2">
-            <Coffee size={24} className="text-coffee-accent" />
+            <img 
+              src="/logo.png" 
+              alt="Brewlyours Logo" 
+              className={`h-8 ${isScrolled ? '' : 'filter brightness-0 invert'}`} 
+            />
             <span className={`font-serif text-xl font-medium ${isScrolled ? 'text-coffee-cream' : 'text-white'}`}>
               Brewlyours
             </span>
