@@ -1,37 +1,51 @@
 
 import React, { useState } from 'react';
 import AnimatedSection from './AnimatedSection';
-import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Coffee } from 'lucide-react';
 import { Button } from './ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
 
 interface ProductImage {
   src: string;
   alt: string;
 }
 
+interface ProductFeature {
+  title: string;
+  description: string;
+}
+
 interface Product {
   id: string;
   title: string;
   tagline: string;
+  description: string;
+  features: ProductFeature[];
   images: ProductImage[];
   link: string;
 }
 
 const ProductHighlights: React.FC = () => {
-  const commonBenefits = [
-    { title: "Freshly Roasted", description: "We roast in small batches to ensure peak flavor and freshness" },
-    { title: "Instant Brew", description: "Perfect coffee in seconds, anytime and anywhere" },
-    { title: "Natural Energy Boost", description: "Carefully processed to preserve natural caffeine and antioxidants" },
-    { title: "Rich Aroma", description: "The enticing scent of freshly brewed coffee in every cup" },
-    { title: "No Additives", description: "Pure coffee with no artificial ingredients or preservatives" },
-    { title: "Sustainable Sourcing", description: "Supporting ethical farming practices and communities" }
-  ];
-
   const products: Product[] = [
     {
       id: "original",
       title: "Brewlyours Instant Coffee",
-      tagline: "Freshly Roasted | Rich Flavor | Smooth Aroma | Ideal for Every Coffee Lover | Energizing Morning Brew",
+      tagline: "Freshly Roasted | Rich Flavor | Smooth Aroma",
+      description: "Brewlyours Instant coffee is made through freeze-drying process, freshly brewed coffee is quickly frozen to preserve its natural flavors. Then, the frozen coffee undergoes a vacuum process where ice sublimates directly into steam, leaving only concentrated coffee granules. This method locks in the coffee's rich aroma, taste, and nutrients, ensuring a smooth and flavorful cup every time. Our freeze-dried coffee is lightweight, convenient, and retains its freshness for longer, delivering the perfect brew whenever you need.",
+      features: [
+        { title: "Freeze-Dried Process", description: "Preserves natural flavors and aromas" },
+        { title: "Rich Body", description: "Full-bodied taste with complex notes" },
+        { title: "Longer Shelf Life", description: "Stays fresh for extended periods" },
+        { title: "Pure Coffee Experience", description: "No additives or preservatives" },
+        { title: "Lightweight", description: "Perfect for travel and outdoor activities" },
+        { title: "Quick Preparation", description: "Dissolves easily in hot water" }
+      ],
       images: [
         { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee" },
         { src: "/assets/product-old.jpg", alt: "Brewlyours Instant Coffee Package" }
@@ -41,7 +55,16 @@ const ProductHighlights: React.FC = () => {
     {
       id: "classic",
       title: "Brewlyours Classic",
-      tagline: "Classic Instant Coffee | Rich & Aromatic | Smooth & Balanced Flavor | Quick & Easy to Prepare",
+      tagline: "Premium Agglomeration | Full-Bodied | Balanced Profile",
+      description: "Brewlyours – The Classic is a premium agglomeration instant coffee crafted for true coffee lovers who crave rich flavor with unmatched convenience. Made from carefully selected beans and perfected through the agglomeration process, it delivers a smooth, full-bodied taste in every cup. With its deep aroma and balanced profile, The Classic is ideal for your daily brew—whether at home, in the office, or on the go. Just add hot water and stir to awaken the essence of authentic coffee, instantly.",
+      features: [
+        { title: "Agglomeration Process", description: "Creates perfect granules for quick dissolving" },
+        { title: "Balanced Flavor", description: "Smooth taste with less acidity" },
+        { title: "Versatile Brewing", description: "Works well with milk or as black coffee" },
+        { title: "Consistent Quality", description: "Every cup tastes just as good as the last" },
+        { title: "Deep Aroma", description: "Fills your space with inviting coffee scent" },
+        { title: "Everyday Luxury", description: "Premium taste for your daily routine" }
+      ],
       images: [
         { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" },
         { src: "/logo.png", alt: "Brewlyours Logo" }
@@ -49,28 +72,6 @@ const ProductHighlights: React.FC = () => {
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
   ];
-
-  // State to track the currently displayed image for each product
-  const [currentImageIndex, setCurrentImageIndex] = useState<Record<string, number>>({
-    original: 0,
-    classic: 0
-  });
-
-  // Function to handle image navigation
-  const navigateImage = (productId: string, direction: 'prev' | 'next') => {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const totalImages = product.images.length;
-    setCurrentImageIndex(prev => {
-      const currentIndex = prev[productId] || 0;
-      if (direction === 'prev') {
-        return { ...prev, [productId]: (currentIndex - 1 + totalImages) % totalImages };
-      } else {
-        return { ...prev, [productId]: (currentIndex + 1) % totalImages };
-      }
-    });
-  };
 
   return (
     <section id="product" className="bg-coffee-light section-padding">
@@ -97,68 +98,48 @@ const ProductHighlights: React.FC = () => {
             <div className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
               <AnimatedSection delay={200}>
                 <div className={`rounded-lg overflow-hidden h-[500px] shadow-xl relative ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                  <div 
-                    className="h-full bg-cover bg-center transition-opacity duration-500"
-                    style={{ backgroundImage: `url('${product.images[currentImageIndex[product.id] || 0].src}')` }}
-                  ></div>
-                  
-                  {/* Image navigation controls */}
-                  {product.images.length > 1 && (
-                    <div className="absolute inset-x-0 bottom-0 flex justify-between p-4">
-                      <Button 
-                        onClick={() => navigateImage(product.id, 'prev')}
-                        size="icon"
-                        variant="secondary"
-                        className="bg-white/80 text-coffee-dark hover:bg-white rounded-full shadow-md"
-                      >
-                        <ChevronLeft size={20} />
-                      </Button>
-                      
-                      <div className="flex gap-2 items-center">
-                        {product.images.map((_, imgIndex) => (
-                          <span 
-                            key={imgIndex}
-                            className={`block w-2 h-2 rounded-full transition-colors ${
-                              (currentImageIndex[product.id] || 0) === imgIndex 
-                                ? 'bg-coffee-accent' 
-                                : 'bg-white/60'
-                            }`}
-                          ></span>
-                        ))}
-                      </div>
-                      
-                      <Button 
-                        onClick={() => navigateImage(product.id, 'next')}
-                        size="icon"
-                        variant="secondary"
-                        className="bg-white/80 text-coffee-dark hover:bg-white rounded-full shadow-md"
-                      >
-                        <ChevronRight size={20} />
-                      </Button>
-                    </div>
-                  )}
+                  <Carousel className="w-full h-full">
+                    <CarouselContent className="h-full">
+                      {product.images.map((image, i) => (
+                        <CarouselItem key={i} className="h-full">
+                          <div 
+                            className="h-full w-full bg-cover bg-center"
+                            style={{ backgroundImage: `url('${image.src}')` }}
+                          ></div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-4" />
+                    <CarouselNext className="right-4" />
+                  </Carousel>
                 </div>
               </AnimatedSection>
               
               <AnimatedSection delay={400}>
-                <div className={`space-y-8 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
+                <div className={`space-y-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                   <h3 className="h3 text-coffee-dark">{product.title}</h3>
-                  <p className="text-coffee-dark/80 text-lg">{product.tagline}</p>
+                  <p className="text-coffee-dark/80 text-lg font-medium">{product.tagline}</p>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                    {commonBenefits.slice(0, 4).map((benefit, i) => (
-                      <div key={i} className="bg-coffee-cream/50 p-4 rounded-lg">
-                        <div className="flex items-start gap-3">
+                  <p className="text-coffee-dark/80">{product.description}</p>
+                  
+                  <div className="bg-coffee-cream/50 p-6 rounded-lg mt-8">
+                    <h4 className="font-bold text-coffee-dark mb-4 flex items-center">
+                      <Coffee size={20} className="mr-2" /> 
+                      What Makes It Special
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {product.features.map((feature, i) => (
+                        <div key={i} className="flex items-start gap-3">
                           <span className="bg-coffee-accent rounded-full p-1 mt-1">
                             <Check size={16} className="text-coffee-dark" />
                           </span>
                           <div>
-                            <h4 className="font-bold text-coffee-dark mb-1">{benefit.title}</h4>
-                            <p className="text-sm text-coffee-dark/70">{benefit.description}</p>
+                            <h5 className="font-bold text-coffee-dark mb-1">{feature.title}</h5>
+                            <p className="text-sm text-coffee-dark/70">{feature.description}</p>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                   
                   <Button 
