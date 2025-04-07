@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import AnimatedSection from './AnimatedSection';
-import { Check, ChevronLeft, ChevronRight, Coffee } from 'lucide-react';
+import { Check, Coffee } from 'lucide-react';
 import { Button } from './ui/button';
 import {
   Carousel,
@@ -26,6 +26,7 @@ interface Product {
   title: string;
   tagline: string;
   description: string;
+  story: string;
   features: ProductFeature[];
   images: ProductImage[];
   link: string;
@@ -36,15 +37,16 @@ const ProductHighlights: React.FC = () => {
     {
       id: "original",
       title: "Brewlyours Instant Coffee",
-      tagline: "Freshly Roasted | Rich Flavor | Smooth Aroma",
-      description: "Brewlyours Instant coffee is made through freeze-drying process, freshly brewed coffee is quickly frozen to preserve its natural flavors. Then, the frozen coffee undergoes a vacuum process where ice sublimates directly into steam, leaving only concentrated coffee granules. This method locks in the coffee's rich aroma, taste, and nutrients, ensuring a smooth and flavorful cup every time. Our freeze-dried coffee is lightweight, convenient, and retains its freshness for longer, delivering the perfect brew whenever you need.",
+      tagline: "Freeze-Dried | Flavor Preservation | Mountain-Grown",
+      description: "Experience the pinnacle of flavor preservation with our meticulously freeze-dried instant coffee. Unlike conventional methods, our freeze-drying technology locks in the coffee's complete flavor profile at its peak, creating a cup that's remarkably close to freshly brewed coffee.",
+      story: "Born from a passion for authentic coffee experiences, our Instant Coffee began when our founder discovered the remarkable difference freeze-drying made while hiking in the Himalayas. Unable to brew traditional coffee at high altitudes, he found that only freeze-dried coffee retained the complex notes he loved. This revelation led to years of perfecting our proprietary freeze-drying process that preserves not just flavor, but the very soul of each coffee bean.",
       features: [
-        { title: "Freeze-Dried Process", description: "Preserves natural flavors and aromas" },
-        { title: "Rich Body", description: "Full-bodied taste with complex notes" },
-        { title: "Longer Shelf Life", description: "Stays fresh for extended periods" },
-        { title: "Pure Coffee Experience", description: "No additives or preservatives" },
-        { title: "Lightweight", description: "Perfect for travel and outdoor activities" },
-        { title: "Quick Preparation", description: "Dissolves easily in hot water" }
+        { title: "Freeze-Dried Process", description: "Preserves 95% of original coffee compounds" },
+        { title: "Complex Flavor Profile", description: "Notes of chocolate, caramel and mild fruitiness" },
+        { title: "Extended Freshness", description: "Stays fresh for up to 2 years when sealed" },
+        { title: "No Additives", description: "Pure coffee with no preservatives or fillers" },
+        { title: "Ultra-Lightweight", description: "Perfect for travel, camping and emergencies" },
+        { title: "Quick Dissolution", description: "Dissolves in seconds in hot or cold water" }
       ],
       images: [
         { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee" },
@@ -55,15 +57,16 @@ const ProductHighlights: React.FC = () => {
     {
       id: "classic",
       title: "Brewlyours Classic",
-      tagline: "Premium Agglomeration | Full-Bodied | Balanced Profile",
-      description: "Brewlyours – The Classic is a premium agglomeration instant coffee crafted for true coffee lovers who crave rich flavor with unmatched convenience. Made from carefully selected beans and perfected through the agglomeration process, it delivers a smooth, full-bodied taste in every cup. With its deep aroma and balanced profile, The Classic is ideal for your daily brew—whether at home, in the office, or on the go. Just add hot water and stir to awaken the essence of authentic coffee, instantly.",
+      tagline: "Agglomeration Process | Smooth Body | Everyday Essential",
+      description: "Our Classic blend leverages the innovative agglomeration process to deliver a consistently smooth, full-bodied experience with every cup. This specially formulated coffee has been engineered for the perfect balance of bold flavor and everyday drinkability.",
+      story: "The Classic was created to meet the demand for an exceptional daily coffee experience without the fuss. Our coffee artisans spent months selecting the perfect bean combination that would stand up to the agglomeration process while maintaining a rich, consistent flavor. The result is a coffee that brings quality and convenience together - perfect for busy professionals who refuse to compromise on their coffee experience regardless of their hectic schedules.",
       features: [
-        { title: "Agglomeration Process", description: "Creates perfect granules for quick dissolving" },
-        { title: "Balanced Flavor", description: "Smooth taste with less acidity" },
-        { title: "Versatile Brewing", description: "Works well with milk or as black coffee" },
-        { title: "Consistent Quality", description: "Every cup tastes just as good as the last" },
-        { title: "Deep Aroma", description: "Fills your space with inviting coffee scent" },
-        { title: "Everyday Luxury", description: "Premium taste for your daily routine" }
+        { title: "Agglomeration Process", description: "Creates uniform granules for consistent brewing" },
+        { title: "Balanced Flavor", description: "Rich nutty undertones with reduced acidity" },
+        { title: "Milk-Compatible", description: "Specially formulated to blend perfectly with milk" },
+        { title: "Daily Reliability", description: "Same great taste cup after cup" },
+        { title: "Robust Aroma", description: "Strong coffee scent that fills your space" },
+        { title: "Value Formula", description: "More cups per jar than standard instant coffee" }
       ],
       images: [
         { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" },
@@ -122,7 +125,12 @@ const ProductHighlights: React.FC = () => {
                   
                   <p className="text-coffee-dark/80">{product.description}</p>
                   
-                  <div className="bg-coffee-cream/50 p-6 rounded-lg mt-8">
+                  <div className="bg-coffee-cream/50 p-5 rounded-lg">
+                    <h4 className="font-serif text-coffee-dark text-lg mb-3">The Story Behind Our Coffee</h4>
+                    <p className="text-coffee-dark/80 italic text-sm">{product.story}</p>
+                  </div>
+                  
+                  <div className="bg-coffee-cream/50 p-6 rounded-lg mt-6">
                     <h4 className="font-bold text-coffee-dark mb-4 flex items-center">
                       <Coffee size={20} className="mr-2" /> 
                       What Makes It Special
