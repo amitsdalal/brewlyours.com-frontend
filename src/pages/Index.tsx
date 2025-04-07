@@ -50,9 +50,7 @@ const Index: React.FC = () => {
               alt="Brewlyours Logo" 
               className={`h-8 ${isScrolled ? '' : 'filter brightness-0 invert'}`} 
             />
-            <span className={`font-serif text-xl font-medium ${isScrolled ? 'text-coffee-cream' : 'text-white'}`}>
-              Brewlyours
-            </span>
+            {/* Text removed as requested */}
           </a>
           
           {/* Desktop Navigation */}
