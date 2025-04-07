@@ -1,8 +1,21 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import AnimatedSection from './AnimatedSection';
-import { Check } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
+
+interface ProductImage {
+  src: string;
+  alt: string;
+}
+
+interface Product {
+  id: string;
+  title: string;
+  tagline: string;
+  images: ProductImage[];
+  link: string;
+}
 
 const ProductHighlights: React.FC = () => {
   const commonBenefits = [
@@ -14,31 +27,66 @@ const ProductHighlights: React.FC = () => {
     { title: "Sustainable Sourcing", description: "Supporting ethical farming practices and communities" }
   ];
 
-  const products = [
+  const products: Product[] = [
     {
       id: "original",
       title: "Brewlyours Instant Coffee",
       tagline: "Freshly Roasted | Rich Flavor | Smooth Aroma | Ideal for Every Coffee Lover | Energizing Morning Brew",
-      image: "/assets/product.jpg",
+      images: [
+        { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee" },
+        { src: "/assets/product-old.jpg", alt: "Brewlyours Instant Coffee Package" }
+      ],
       link: "https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
     },
     {
       id: "classic",
       title: "Brewlyours Classic",
       tagline: "Classic Instant Coffee | Rich & Aromatic | Smooth & Balanced Flavor | Quick & Easy to Prepare",
-      image: "/assets/product-classic.jpg",
+      images: [
+        { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" },
+        { src: "/lovable-uploads/0abdeb94-b549-4524-b46e-7f20500e9a38.png", alt: "Brewlyours Logo" }
+      ],
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
   ];
+
+  // State to track the currently displayed image for each product
+  const [currentImageIndex, setCurrentImageIndex] = useState<Record<string, number>>({
+    original: 0,
+    classic: 0
+  });
+
+  // Function to handle image navigation
+  const navigateImage = (productId: string, direction: 'prev' | 'next') => {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const totalImages = product.images.length;
+    setCurrentImageIndex(prev => {
+      const currentIndex = prev[productId] || 0;
+      if (direction === 'prev') {
+        return { ...prev, [productId]: (currentIndex - 1 + totalImages) % totalImages };
+      } else {
+        return { ...prev, [productId]: (currentIndex + 1) % totalImages };
+      }
+    });
+  };
 
   return (
     <section id="product" className="bg-coffee-light section-padding">
       <div className="container-wide">
         <AnimatedSection>
-          <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
-          <p className="subtitle text-center max-w-2xl mx-auto mb-16">
-            Experience the rich, aromatic flavor of our signature products
-          </p>
+          <div className="text-center mb-8">
+            <img 
+              src="/lovable-uploads/0abdeb94-b549-4524-b46e-7f20500e9a38.png" 
+              alt="Brewlyours Logo" 
+              className="mx-auto h-24 mb-4"
+            />
+            <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
+            <p className="subtitle text-center max-w-2xl mx-auto mb-16">
+              Experience the rich, aromatic flavor of our signature products
+            </p>
+          </div>
         </AnimatedSection>
 
         {products.map((product, index) => (
@@ -48,8 +96,47 @@ const ProductHighlights: React.FC = () => {
           >
             <div className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
               <AnimatedSection delay={200}>
-                <div className={`rounded-lg overflow-hidden h-[500px] shadow-xl ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                  <div className="h-full bg-cover bg-center" style={{ backgroundImage: `url('${product.image}')` }}></div>
+                <div className={`rounded-lg overflow-hidden h-[500px] shadow-xl relative ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+                  <div 
+                    className="h-full bg-cover bg-center transition-opacity duration-500"
+                    style={{ backgroundImage: `url('${product.images[currentImageIndex[product.id] || 0].src}')` }}
+                  ></div>
+                  
+                  {/* Image navigation controls */}
+                  {product.images.length > 1 && (
+                    <div className="absolute inset-x-0 bottom-0 flex justify-between p-4">
+                      <Button 
+                        onClick={() => navigateImage(product.id, 'prev')}
+                        size="icon"
+                        variant="secondary"
+                        className="bg-white/80 text-coffee-dark hover:bg-white rounded-full shadow-md"
+                      >
+                        <ChevronLeft size={20} />
+                      </Button>
+                      
+                      <div className="flex gap-2 items-center">
+                        {product.images.map((_, imgIndex) => (
+                          <span 
+                            key={imgIndex}
+                            className={`block w-2 h-2 rounded-full transition-colors ${
+                              (currentImageIndex[product.id] || 0) === imgIndex 
+                                ? 'bg-coffee-accent' 
+                                : 'bg-white/60'
+                            }`}
+                          ></span>
+                        ))}
+                      </div>
+                      
+                      <Button 
+                        onClick={() => navigateImage(product.id, 'next')}
+                        size="icon"
+                        variant="secondary"
+                        className="bg-white/80 text-coffee-dark hover:bg-white rounded-full shadow-md"
+                      >
+                        <ChevronRight size={20} />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </AnimatedSection>
               
