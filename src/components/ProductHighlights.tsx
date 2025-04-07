@@ -50,7 +50,6 @@ const ProductHighlights: React.FC = () => {
       ],
       images: [
         { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee" },
-        { src: "/assets/product-old.jpg", alt: "Brewlyours Instant Coffee Package" }
       ],
       link: "https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
     },
@@ -69,8 +68,7 @@ const ProductHighlights: React.FC = () => {
         { title: "Value Formula", description: "More cups per jar than standard instant coffee" }
       ],
       images: [
-        { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" },
-        { src: "/logo.png", alt: "Brewlyours Logo" }
+        { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" }
       ],
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
