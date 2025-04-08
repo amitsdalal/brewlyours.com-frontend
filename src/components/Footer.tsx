@@ -16,7 +16,6 @@ const Footer: React.FC = () => {
               height="32"
               loading="lazy"
             />
-            {/* Text removed as requested */}
           </div>
           
           <div>

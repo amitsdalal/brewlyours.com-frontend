@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import AboutUs from '@/components/AboutUs';
@@ -93,11 +92,10 @@ const Index: React.FC = () => {
             <img 
               src="/logo.png" 
               alt="Brewlyours Logo" 
-              className={`h-8 ${isScrolled ? '' : 'filter brightness-0 invert'}`} 
+              className="h-8" 
               width="32"
               height="32"
             />
-            {/* Text removed as requested */}
           </a>
           
           {/* Desktop Navigation */}

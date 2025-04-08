@@ -1,10 +1,64 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import AnimatedSection from './AnimatedSection';
 import { Button } from './ui/button';
 import { Send } from 'lucide-react';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 
 const ContactSection: React.FC = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate form
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    try {
+      // Here you would normally send the data to your backend
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Message sent",
+        description: "Thank you for your message. We'll get back to you soon!",
+      });
+      
+      // Reset form
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="bg-coffee-cream section-padding">
       <div className="container-wide">
@@ -28,36 +82,23 @@ const ContactSection: React.FC = () => {
                   <h4 className="font-medium text-coffee-dark">Email</h4>
                   <p className="text-coffee-dark/70">hello@brewlyours.com</p>
                 </div>
-                
-                <div>
-                  <h4 className="font-medium text-coffee-dark">Follow Us</h4>
-                  <div className="flex space-x-4 mt-2">
-                    <a href="#" className="text-coffee-dark/70 hover:text-coffee-dark">
-                      Instagram
-                    </a>
-                    <a href="#" className="text-coffee-dark/70 hover:text-coffee-dark">
-                      Twitter
-                    </a>
-                    <a href="#" className="text-coffee-dark/70 hover:text-coffee-dark">
-                      Facebook
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </AnimatedSection>
           
           <AnimatedSection delay={400}>
-            <form className="space-y-6 bg-white p-6 rounded-lg shadow-sm">
+            <form className="space-y-6 bg-white p-6 rounded-lg shadow-sm" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-coffee-dark mb-1">
                   Name
                 </label>
-                <input
+                <Input
                   type="text"
                   id="name"
                   className="w-full px-4 py-2 border border-coffee-beige/30 rounded-md focus:outline-none focus:ring-2 focus:ring-coffee-accent/50"
                   placeholder="Your name"
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
               
@@ -65,11 +106,13 @@ const ContactSection: React.FC = () => {
                 <label htmlFor="email" className="block text-sm font-medium text-coffee-dark mb-1">
                   Email
                 </label>
-                <input
+                <Input
                   type="email"
                   id="email"
                   className="w-full px-4 py-2 border border-coffee-beige/30 rounded-md focus:outline-none focus:ring-2 focus:ring-coffee-accent/50"
                   placeholder="your@email.com"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               
@@ -77,17 +120,23 @@ const ContactSection: React.FC = () => {
                 <label htmlFor="message" className="block text-sm font-medium text-coffee-dark mb-1">
                   Message
                 </label>
-                <textarea
+                <Textarea
                   id="message"
                   rows={4}
                   className="w-full px-4 py-2 border border-coffee-beige/30 rounded-md focus:outline-none focus:ring-2 focus:ring-coffee-accent/50"
                   placeholder="Your message..."
+                  value={formData.message}
+                  onChange={handleChange}
                 />
               </div>
               
-              <Button className="w-full bg-coffee-dark hover:bg-coffee-dark/80 text-coffee-cream">
+              <Button 
+                type="submit" 
+                className="w-full bg-coffee-dark hover:bg-coffee-dark/80 text-coffee-cream"
+                disabled={isSubmitting}
+              >
                 <Send size={16} className="mr-2" />
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </form>
           </AnimatedSection>
