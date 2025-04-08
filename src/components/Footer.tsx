@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
             <img 
               src="/logo.png" 
               alt="Brewlyours Logo" 
-              className="h-8" 
+              className="h-8 w-auto" 
               width="32" 
               height="32"
               loading="lazy"
