@@ -7,10 +7,12 @@ import FutureReady from '@/components/FutureReady';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index: React.FC = () => {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +24,28 @@ const Index: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+    // Implement smooth scrolling for anchor links
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      
+      if (anchor && anchor.hash && anchor.href.includes(window.location.pathname)) {
+        e.preventDefault();
+        const element = document.querySelector(anchor.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          // Close mobile menu when clicking an anchor link
+          setMobileMenuOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleAnchorClick);
     };
   }, []);
 
@@ -32,6 +54,28 @@ const Index: React.FC = () => {
     { label: 'Product', href: '#product' },
     { label: 'Contact', href: '#contact' },
   ];
+
+  // Sticky buy button for mobile
+  const [showStickyButton, setShowStickyButton] = React.useState(false);
+  
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const handleScrollForButton = () => {
+      const productSection = document.getElementById('product');
+      if (productSection) {
+        const rect = productSection.getBoundingClientRect();
+        if (rect.top < 0 && rect.bottom > window.innerHeight) {
+          setShowStickyButton(true);
+        } else {
+          setShowStickyButton(false);
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScrollForButton);
+    return () => window.removeEventListener('scroll', handleScrollForButton);
+  }, [isMobile]);
 
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -42,24 +86,27 @@ const Index: React.FC = () => {
             ? 'py-3 bg-coffee-dark/95 backdrop-blur-sm shadow-md' 
             : 'py-5 bg-transparent'
         }`}
+        role="banner"
       >
         <div className="container-wide flex justify-between items-center">
-          <a href="#" className="flex items-center gap-2">
+          <a href="#" className="flex items-center gap-2" aria-label="Brewlyours - Home">
             <img 
               src="/logo.png" 
               alt="Brewlyours Logo" 
               className={`h-8 ${isScrolled ? '' : 'filter brightness-0 invert'}`} 
+              width="32"
+              height="32"
             />
             {/* Text removed as requested */}
           </a>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8" role="navigation" aria-label="Main Navigation">
             {navItems.map((item, i) => (
               <a 
                 key={i}
                 href={item.href} 
-                className={`transition-colors ${
+                className={`transition-colors text-lg py-2 px-3 ${
                   isScrolled 
                     ? 'text-coffee-beige/80 hover:text-coffee-accent' 
                     : 'text-white hover:text-coffee-accent'
@@ -70,12 +117,13 @@ const Index: React.FC = () => {
             ))}
             <Button 
               size="sm" 
-              className="bg-coffee-accent text-coffee-dark hover:bg-coffee-light"
+              className="bg-coffee-accent text-coffee-dark hover:bg-coffee-light text-base py-2 px-6"
             >
               <a 
                 href="https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Buy Brewlyours Coffee on Amazon"
               >
                 Buy Now
               </a>
@@ -84,8 +132,11 @@ const Index: React.FC = () => {
           
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-white p-2"
+            className="md:hidden text-white p-3"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -105,13 +156,13 @@ const Index: React.FC = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-coffee-dark/95 backdrop-blur-sm py-4">
+          <div className="md:hidden bg-coffee-dark/95 backdrop-blur-sm py-4" id="mobile-menu">
             <div className="container-wide flex flex-col space-y-4">
               {navItems.map((item, i) => (
                 <a 
                   key={i}
                   href={item.href} 
-                  className="text-coffee-beige/80 hover:text-coffee-accent py-2 transition-colors"
+                  className="text-coffee-beige/80 hover:text-coffee-accent py-3 px-4 text-lg transition-colors block"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
@@ -119,12 +170,13 @@ const Index: React.FC = () => {
               ))}
               <Button 
                 size="sm" 
-                className="bg-coffee-accent text-coffee-dark hover:bg-coffee-light w-full mt-2"
+                className="bg-coffee-accent text-coffee-dark hover:bg-coffee-light w-full mt-2 py-3 text-base"
               >
                 <a 
                   href="https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="w-full block"
                 >
                   Buy Now
                 </a>
@@ -135,13 +187,32 @@ const Index: React.FC = () => {
       </header>
       
       {/* Main Content */}
-      <main>
+      <main role="main">
         <Hero />
         <AboutUs />
         <ProductHighlights />
         <FutureReady />
         <ContactSection />
       </main>
+
+      {/* Sticky Buy Now button for mobile */}
+      {isMobile && showStickyButton && (
+        <div className="fixed bottom-5 left-0 right-0 z-40 px-4 flex justify-center">
+          <Button 
+            size="lg" 
+            className="bg-coffee-accent hover:bg-coffee-light text-coffee-dark font-medium shadow-lg w-full max-w-xs py-4 text-base"
+          >
+            <a 
+              href="https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full"
+            >
+              Buy on Amazon
+            </a>
+          </Button>
+        </div>
+      )}
 
       <Footer />
     </div>

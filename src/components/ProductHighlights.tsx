@@ -49,7 +49,7 @@ const ProductHighlights: React.FC = () => {
         { title: "Quick Dissolution", description: "Dissolves in seconds in hot or cold water" }
       ],
       images: [
-        { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee" },
+        { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee - Premium freeze-dried coffee package" },
       ],
       link: "https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
     },
@@ -68,14 +68,14 @@ const ProductHighlights: React.FC = () => {
         { title: "Value Formula", description: "More cups per jar than standard instant coffee" }
       ],
       images: [
-        { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee" }
+        { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee - Premium agglomeration coffee jar" }
       ],
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
   ];
 
   return (
-    <section id="product" className="bg-coffee-light section-padding">
+    <section id="product" className="bg-coffee-light section-padding" aria-label="Our Premium Coffee Products">
       <div className="container-wide">
         <AnimatedSection>
           <div className="text-center mb-8">
@@ -83,6 +83,9 @@ const ProductHighlights: React.FC = () => {
               src="/logo.png" 
               alt="Brewlyours Logo" 
               className="mx-auto h-24 mb-4"
+              width="96"
+              height="96"
+              loading="lazy"
             />
             <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
             <p className="subtitle text-center max-w-2xl mx-auto mb-16">
@@ -95,23 +98,40 @@ const ProductHighlights: React.FC = () => {
           <div 
             key={product.id}
             className={`mb-24 ${index !== products.length - 1 ? 'pb-16 border-b border-coffee-dark/10' : ''}`}
+            id={product.id}
           >
             <div className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
               <AnimatedSection delay={200}>
                 <div className={`rounded-lg overflow-hidden h-[500px] shadow-xl relative ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                  <Carousel className="w-full h-full">
+                  <Carousel className="w-full h-full" aria-label={`${product.title} product images`}>
                     <CarouselContent className="h-full">
                       {product.images.map((image, i) => (
                         <CarouselItem key={i} className="h-full">
                           <div 
                             className="h-full w-full bg-cover bg-center"
                             style={{ backgroundImage: `url('${image.src}')` }}
-                          ></div>
+                            role="img" 
+                            aria-label={image.alt}
+                          >
+                            {/* Fallback image in case background image fails */}
+                            <img 
+                              src={image.src} 
+                              alt={image.alt} 
+                              className="opacity-0 w-full h-full object-cover" 
+                              loading="lazy"
+                              onError={(e) => {
+                                // Replace with a solid color if image fails to load
+                                const target = e.target as HTMLElement;
+                                target.style.opacity = "1";
+                                target.style.backgroundColor = "#D4A76A";
+                              }}
+                            />
+                          </div>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    <CarouselPrevious className="left-4" />
-                    <CarouselNext className="right-4" />
+                    <CarouselPrevious className="left-4" aria-label="Previous image" />
+                    <CarouselNext className="right-4" aria-label="Next image" />
                   </Carousel>
                 </div>
               </AnimatedSection>
@@ -130,13 +150,13 @@ const ProductHighlights: React.FC = () => {
                   
                   <div className="bg-coffee-cream/50 p-6 rounded-lg mt-6">
                     <h4 className="font-bold text-coffee-dark mb-4 flex items-center">
-                      <Coffee size={20} className="mr-2" /> 
+                      <Coffee size={20} className="mr-2" aria-hidden="true" /> 
                       What Makes It Special
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {product.features.map((feature, i) => (
                         <div key={i} className="flex items-start gap-3">
-                          <span className="bg-coffee-accent rounded-full p-1 mt-1">
+                          <span className="bg-coffee-accent rounded-full p-1 mt-1" aria-hidden="true">
                             <Check size={16} className="text-coffee-dark" />
                           </span>
                           <div>
@@ -157,6 +177,7 @@ const ProductHighlights: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
+                      aria-label={`Buy ${product.title} on Amazon`}
                     >
                       Buy on Amazon
                     </a>
