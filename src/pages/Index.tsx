@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import AboutUs from '@/components/AboutUs';
@@ -92,7 +93,7 @@ const Index: React.FC = () => {
             <img 
               src="/logo.png" 
               alt="Brewlyours Logo" 
-              className="h-8" 
+              className="h-8 w-auto" 
               width="32"
               height="32"
             />
