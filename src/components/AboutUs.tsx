@@ -18,6 +18,7 @@ const AboutUs: React.FC = () => {
                 className="h-full bg-[url('/assets/about-us.jpg')] bg-cover bg-center"
                 role="img" 
                 aria-label="Coffee plantation with workers carefully selecting premium coffee beans"
+                loading="lazy"
               ></div>
             </div>
           </AnimatedSection>
