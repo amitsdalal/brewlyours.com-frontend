@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import AboutUs from '@/components/AboutUs';
@@ -8,11 +7,14 @@ import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { ArrowUp } from 'lucide-react';
 
 const Index: React.FC = () => {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const isMobile = useIsMobile();
+
+  const [showBackToTop, setShowBackToTop] = React.useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,13 @@ const Index: React.FC = () => {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
+      }
+
+      // Show back to top button after scrolling down 500px
+      if (window.scrollY > 500) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
       }
     };
 
@@ -211,6 +220,17 @@ const Index: React.FC = () => {
             </a>
           </Button>
         </div>
+      )}
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-20 right-5 z-40 bg-coffee-accent hover:bg-coffee-light text-coffee-dark p-3 rounded-full shadow-lg"
+          aria-label="Back to top"
+        >
+          <ArrowUp size={24} />
+        </button>
       )}
 
       <Footer />
