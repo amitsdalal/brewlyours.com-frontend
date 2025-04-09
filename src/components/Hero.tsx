@@ -17,11 +17,11 @@ const Hero: React.FC = () => {
       <div className="container-wide relative z-10 flex flex-col items-center justify-center text-center py-16">
         <AnimatedSection>
           <h1 className="text-coffee-cream font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Brewlyours – <span className="text-coffee-accent">Truly Yours</span>: Premium Instant Coffee Experience
+            Brewlyours – <span className="text-coffee-accent">Truly Yours</span>
           </h1>
-          <p className="text-coffee-beige text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Premium instant coffee in multiple varieties, crafted for those who value quality in every cup
-          </p>
+          <h2 className="text-coffee-beige text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            Premium Instant Coffee Experience
+          </h2>
           
           <div className="bg-coffee-dark/40 backdrop-blur-sm p-6 rounded-lg max-w-3xl mx-auto mb-10">
             <h2 className="text-coffee-accent font-serif text-2xl font-semibold mb-4">Exceptional Coffee, Instant Convenience</h2>
