@@ -1,49 +1,28 @@
+
 import React, { useEffect, useState } from 'react';
-import { Switch } from "@/components/ui/switch";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from '@/components/ThemeProvider';
 
 const ThemeToggle: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    // Otherwise check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
-
-  useEffect(() => {
-    // Apply theme when component mounts and when theme changes
-    applyTheme(isDarkMode);
-  }, [isDarkMode]);
-
-  const applyTheme = (dark: boolean) => {
-    const root = window.document.documentElement;
-    
-    if (dark) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  const { theme, setTheme } = useTheme();
+  const isDarkMode = theme === 'dark';
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    setTheme(isDarkMode ? 'light' : 'dark');
   };
 
   return (
-    <div className="flex items-center space-x-2 bg-coffee-dark/60 backdrop-blur-sm p-2 rounded-full">
-      <Sun className={`h-4 w-4 ${isDarkMode ? 'text-coffee-beige/60' : 'text-coffee-accent'}`} />
-      <Switch 
-        checked={isDarkMode} 
-        onCheckedChange={toggleTheme} 
-        className="data-[state=checked]:bg-coffee-accent data-[state=unchecked]:bg-coffee-beige/30"
-      />
-      <Moon className={`h-4 w-4 ${isDarkMode ? 'text-coffee-accent' : 'text-coffee-beige/60'}`} />
-    </div>
+    <button
+      onClick={toggleTheme}
+      className="fixed bottom-5 right-5 z-50 p-3 rounded-full bg-coffee-accent/80 backdrop-blur-sm hover:bg-coffee-accent transition-all duration-300 shadow-lg"
+      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {isDarkMode ? (
+        <Sun className="h-5 w-5 text-coffee-dark" />
+      ) : (
+        <Moon className="h-5 w-5 text-coffee-dark" />
+      )}
+    </button>
   );
 };
 
