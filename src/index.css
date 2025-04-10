@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Imprima&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -38,6 +37,36 @@
     --radius: 0.5rem;
 
     scroll-behavior: smooth;
+  }
+
+  .dark {
+    --background: 20 40% 10%;
+    --foreground: 38 45% 96%;
+
+    --card: 20 40% 10%;
+    --card-foreground: 38 45% 96%;
+
+    --popover: 20 40% 10%;
+    --popover-foreground: 38 45% 96%;
+
+    --primary: 38 45% 96%;
+    --primary-foreground: 25 49% 23%;
+
+    --secondary: 25 30% 15%;
+    --secondary-foreground: 38 45% 96%;
+
+    --muted: 25 30% 15%;
+    --muted-foreground: 38 25% 80%;
+
+    --accent: 25 30% 15%;
+    --accent-foreground: 38 45% 96%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 38 45% 96%;
+
+    --border: 25 30% 25%;
+    --input: 25 30% 25%;
+    --ring: 38 45% 96%;
   }
 
   * {

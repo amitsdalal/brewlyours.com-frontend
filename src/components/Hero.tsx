@@ -2,6 +2,7 @@
 import React from 'react';
 import AnimatedSection from './AnimatedSection';
 import { Button } from './ui/button';
+import ThemeToggle from './ThemeToggle';
 
 const Hero: React.FC = () => {
   return (
@@ -15,6 +16,9 @@ const Hero: React.FC = () => {
       </div>
       
       <div className="container-wide relative z-10 flex flex-col items-center justify-center text-center py-16">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
         <AnimatedSection>
           <h1 className="text-coffee-cream font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Brewlyours – <span className="text-coffee-accent">Truly Yours</span>
