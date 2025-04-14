@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import AboutUs from '@/components/AboutUs';
@@ -99,13 +100,17 @@ const Index: React.FC = () => {
       >
         <div className="container-wide flex justify-between items-center">
           <a href="#" className="flex items-center gap-2" aria-label="Brewlyours - Home">
-            <img 
-              src="/logo.png" 
-              alt="Brewlyours Logo" 
-              className="h-8 w-auto" 
-              width="32"
-              height="32"
-            />
+            <picture>
+              <source srcSet="/logo.webp" type="image/webp" />
+              <source srcSet="/logo.png" type="image/png" />
+              <img 
+                src="/logo.png" 
+                alt="Brewlyours Logo" 
+                className="h-8 w-auto" 
+                width="32"
+                height="32"
+              />
+            </picture>
           </a>
           
           {/* Desktop Navigation */}

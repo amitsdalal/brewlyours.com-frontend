@@ -14,11 +14,15 @@ const AboutUs: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <AnimatedSection delay={200}>
             <div className="rounded-lg overflow-hidden h-[400px]">
-              <div 
-                className="h-full bg-[url('/assets/about-us.jpg')] bg-cover bg-center"
-                role="img" 
-                aria-label="Coffee plantation with workers carefully selecting premium coffee beans"
-              ></div>
+              <picture>
+                <source srcSet="/assets/about-us.webp" type="image/webp" />
+                <source srcSet="/assets/about-us.jpg" type="image/jpeg" />
+                <div 
+                  className="h-full bg-[url('/assets/about-us.jpg')] bg-cover bg-center"
+                  role="img" 
+                  aria-label="Coffee plantation with workers carefully selecting premium coffee beans"
+                ></div>
+              </picture>
             </div>
           </AnimatedSection>
           

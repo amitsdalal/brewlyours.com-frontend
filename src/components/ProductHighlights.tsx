@@ -13,6 +13,7 @@ import {
 
 interface ProductImage {
   src: string;
+  webpSrc: string;
   alt: string;
 }
 
@@ -33,7 +34,7 @@ interface Product {
 }
 
 const ProductHighlights: React.FC = () => {
-  const products: Product[] = [
+  const products = [
     {
       id: "original",
       title: "Brewlyours Instant Coffee",
@@ -49,7 +50,7 @@ const ProductHighlights: React.FC = () => {
         { title: "Quick Dissolution", description: "Dissolves in seconds in hot or cold water" }
       ],
       images: [
-        { src: "/assets/product.jpg", alt: "Brewlyours Instant Coffee - Premium freeze-dried coffee package" },
+        { src: "/assets/product.jpg", webpSrc: "/assets/product.webp", alt: "Brewlyours Instant Coffee - Premium freeze-dried coffee package" },
       ],
       link: "https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
     },
@@ -68,7 +69,7 @@ const ProductHighlights: React.FC = () => {
         { title: "Value Formula", description: "More cups per jar than standard instant coffee" }
       ],
       images: [
-        { src: "/assets/product-classic.jpg", alt: "Brewlyours Classic Coffee - Premium agglomeration coffee jar" }
+        { src: "/assets/product-classic.jpg", webpSrc: "/assets/product-classic.webp", alt: "Brewlyours Classic Coffee - Premium agglomeration coffee jar" }
       ],
       link: "https://www.amazon.in/dp/B0F3HVQZP9"
     }
@@ -79,14 +80,18 @@ const ProductHighlights: React.FC = () => {
       <div className="container-wide">
         <AnimatedSection>
           <div className="text-center mb-8">
-            <img 
-              src="/logo.png" 
-              alt="Brewlyours Logo" 
-              className="mx-auto h-24 mb-4"
-              width="96"
-              height="96"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/logo.webp" type="image/webp" />
+              <source srcSet="/logo.png" type="image/png" />
+              <img 
+                src="/logo.png" 
+                alt="Brewlyours Logo" 
+                className="mx-auto h-24 mb-4"
+                width="96"
+                height="96"
+                loading="lazy"
+              />
+            </picture>
             <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
             <p className="subtitle text-center max-w-2xl mx-auto mb-16">
               Experience the rich, aromatic flavor of our signature products
@@ -107,26 +112,30 @@ const ProductHighlights: React.FC = () => {
                     <CarouselContent className="h-full">
                       {product.images.map((image, i) => (
                         <CarouselItem key={i} className="h-full">
-                          <div 
-                            className="h-full w-full bg-cover bg-center"
-                            style={{ backgroundImage: `url('${image.src}')` }}
-                            role="img" 
-                            aria-label={image.alt}
-                          >
-                            {/* Fallback image in case background image fails */}
-                            <img 
-                              src={image.src} 
-                              alt={image.alt} 
-                              className="opacity-0 w-full h-full object-cover" 
-                              loading="lazy"
-                              onError={(e) => {
-                                // Replace with a solid color if image fails to load
-                                const target = e.target as HTMLElement;
-                                target.style.opacity = "1";
-                                target.style.backgroundColor = "#D4A76A";
-                              }}
-                            />
-                          </div>
+                          <picture>
+                            <source srcSet={image.webpSrc} type="image/webp" />
+                            <source srcSet={image.src} type="image/jpeg" />
+                            <div 
+                              className="h-full w-full bg-cover bg-center"
+                              style={{ backgroundImage: `url('${image.src}')` }}
+                              role="img" 
+                              aria-label={image.alt}
+                            >
+                              {/* Fallback image in case background image fails */}
+                              <img 
+                                src={image.src} 
+                                alt={image.alt} 
+                                className="opacity-0 w-full h-full object-cover" 
+                                loading="lazy"
+                                onError={(e) => {
+                                  // Replace with a solid color if image fails to load
+                                  const target = e.target as HTMLElement;
+                                  target.style.opacity = "1";
+                                  target.style.backgroundColor = "#D4A76A";
+                                }}
+                              />
+                            </div>
+                          </picture>
                         </CarouselItem>
                       ))}
                     </CarouselContent>

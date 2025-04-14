@@ -8,10 +8,14 @@ const Hero: React.FC = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-coffee-dark dark:bg-coffee-dark/80" id="hero" aria-label="Hero Section">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-coffee-dark/80 to-coffee-dark/95 dark:from-coffee-dark/90 dark:to-coffee-dark"></div>
-        <div className="absolute inset-0 bg-[url('/assets/hero-bg.jpg')] bg-cover bg-center opacity-40 dark:opacity-30" 
-             role="img" 
-             aria-label="Background image of coffee beans and coffee making">
-        </div>
+        <picture>
+          <source srcSet="/assets/hero-bg.webp" type="image/webp" />
+          <source srcSet="/assets/hero-bg.jpg" type="image/jpeg" /> 
+          <div className="absolute inset-0 bg-[url('/assets/hero-bg.jpg')] bg-cover bg-center opacity-40 dark:opacity-30" 
+               role="img" 
+               aria-label="Background image of coffee beans and coffee making">
+          </div>
+        </picture>
       </div>
       
       <div className="container-wide relative z-10 flex flex-col items-center justify-center text-center py-16">
