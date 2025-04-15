@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AnimatedSection from './AnimatedSection';
 import { Check, Coffee } from 'lucide-react';
@@ -86,6 +87,14 @@ const ProductHighlights: React.FC = () => {
               width="96"
               height="96"
               loading="lazy"
+              onError={(e) => {
+                console.error("Failed to load logo in ProductHighlights");
+                const target = e.target as HTMLImageElement;
+                // Fallback to alternate path if main path fails
+                if (target.src.includes('/logo.png')) {
+                  target.src = './logo.png';
+                }
+              }}
             />
             <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
             <p className="subtitle text-center max-w-2xl mx-auto mb-16">
