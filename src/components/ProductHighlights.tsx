@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AnimatedSection from './AnimatedSection';
 import { Check, Coffee } from 'lucide-react';
@@ -80,18 +79,14 @@ const ProductHighlights: React.FC = () => {
       <div className="container-wide">
         <AnimatedSection>
           <div className="text-center mb-8">
-            <picture>
-              <source srcSet="/logo.webp" type="image/webp" />
-              <source srcSet="/logo.png" type="image/png" />
-              <img 
-                src="/logo.png" 
-                alt="Brewlyours Logo" 
-                className="mx-auto h-24 mb-4"
-                width="96"
-                height="96"
-                loading="lazy"
-              />
-            </picture>
+            <img 
+              src="/logo.png" 
+              alt="Brewlyours Logo" 
+              className="mx-auto h-24 mb-4"
+              width="96"
+              height="96"
+              loading="lazy"
+            />
             <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
             <p className="subtitle text-center max-w-2xl mx-auto mb-16">
               Experience the rich, aromatic flavor of our signature products
