@@ -76,14 +76,20 @@ const ProductHighlights: React.FC = () => {
   ];
 
   return (
-    <section id="product" className="bg-coffee-light section-padding" aria-label="Our Premium Coffee Products">
-      <div className="container-wide">
+    <section id="product" className="bg-gradient-to-b from-coffee-light via-coffee-beige/50 to-coffee-light section-padding relative overflow-hidden" aria-label="Our Premium Coffee Products">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-coffee-accent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-64 h-64 bg-coffee-medium rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container-wide relative z-10 px-4 md:px-6">
         <AnimatedSection>
-          <div className="text-center mb-8">
-            <img 
-              src="/logo.png" 
-              alt="Brewlyours Logo" 
-              className="mx-auto h-24 mb-4"
+          <div className="text-center mb-16 md:mb-20">
+            <img
+              src="/logo.png"
+              alt="Brewlyours Logo"
+              className="mx-auto h-20 md:h-24 mb-6 animate-float drop-shadow-2xl"
               width="96"
               height="96"
               loading="lazy"
@@ -96,105 +102,111 @@ const ProductHighlights: React.FC = () => {
                 }
               }}
             />
-            <h2 className="h2 text-center text-coffee-dark mb-4">Our Premium Collection</h2>
-            <p className="subtitle text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl text-center text-coffee-dark mb-4 font-serif font-bold">Our Premium Collection</h2>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <span className="inline-block w-16 h-0.5 bg-gradient-to-r from-transparent to-coffee-accent"></span>
+              <span className="inline-block w-2 h-2 rounded-full bg-coffee-accent"></span>
+              <span className="inline-block w-16 h-0.5 bg-gradient-to-l from-transparent to-coffee-accent"></span>
+            </div>
+            <p className="text-center max-w-2xl mx-auto text-base md:text-lg text-coffee-dark/80 leading-relaxed">
               Experience the rich, aromatic flavor of our signature products
             </p>
           </div>
         </AnimatedSection>
 
         {products.map((product, index) => (
-          <div 
+          <div
             key={product.id}
-            className={`mb-24 ${index !== products.length - 1 ? 'pb-16 border-b border-coffee-dark/10' : ''}`}
+            className={`mb-32 ${index !== products.length - 1 ? 'pb-20 border-b-2 border-coffee-dark/10' : ''}`}
             id={product.id}
           >
-            <div className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
+            <div className={`grid md:grid-cols-2 gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
               <AnimatedSection delay={200}>
-                <div className={`rounded-lg overflow-hidden h-[500px] shadow-xl relative ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                  <Carousel className="w-full h-full" aria-label={`${product.title} product images`}>
-                    <CarouselContent className="h-full">
+                <div className={`rounded-2xl overflow-hidden shadow-2xl relative bg-gradient-to-br from-coffee-cream to-coffee-beige ${index % 2 === 1 ? 'md:order-2' : ''} group`}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-coffee-dark/20 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  <Carousel className="w-full" aria-label={`${product.title} product images`}>
+                    <CarouselContent>
                       {product.images.map((image, i) => (
-                        <CarouselItem key={i} className="h-full">
-                          <picture>
-                            <source srcSet={image.webpSrc} type="image/webp" />
-                            <source srcSet={image.src} type="image/jpeg" />
-                            <div 
-                              className="h-full w-full bg-cover bg-center"
-                              style={{ backgroundImage: `url('${image.src}')` }}
-                              role="img" 
-                              aria-label={image.alt}
-                            >
-                              {/* Fallback image in case background image fails */}
-                              <img 
-                                src={image.src} 
-                                alt={image.alt} 
-                                className="opacity-0 w-full h-full object-cover" 
-                                loading="lazy"
-                                onError={(e) => {
-                                  // Replace with a solid color if image fails to load
-                                  const target = e.target as HTMLElement;
-                                  target.style.opacity = "1";
-                                  target.style.backgroundColor = "#D4A76A";
-                                }}
-                              />
-                            </div>
-                          </picture>
+                        <CarouselItem key={i} className="flex items-center justify-center">
+                          <div className="w-full h-[400px] md:h-[500px] flex items-center justify-center p-6 md:p-8">
+                            <img
+                              src={image.src}
+                              alt={image.alt}
+                              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                              loading="lazy"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                console.error("Failed to load image:", image.src);
+                                target.style.backgroundColor = "#D4A76A";
+                              }}
+                            />
+                          </div>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    <CarouselPrevious className="left-4" aria-label="Previous image" />
-                    <CarouselNext className="right-4" aria-label="Next image" />
+                    <CarouselPrevious className="left-4 z-20 bg-coffee-accent/90 hover:bg-coffee-accent text-coffee-dark border-0 shadow-lg" aria-label="Previous image" />
+                    <CarouselNext className="right-4 z-20 bg-coffee-accent/90 hover:bg-coffee-accent text-coffee-dark border-0 shadow-lg" aria-label="Next image" />
                   </Carousel>
                 </div>
               </AnimatedSection>
               
               <AnimatedSection delay={400}>
-                <div className={`space-y-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
-                  <h3 className="h3 text-coffee-dark">{product.title}</h3>
-                  <p className="text-coffee-dark/80 text-lg font-medium">{product.tagline}</p>
-                  
-                  <p className="text-coffee-dark/80">{product.description}</p>
-                  
-                  <div className="bg-coffee-cream/50 p-5 rounded-lg">
-                    <h4 className="font-serif text-coffee-dark text-lg mb-3">The Story Behind Our Coffee</h4>
-                    <p className="text-coffee-dark/80 italic text-sm">{product.story}</p>
+                <div className={`space-y-7 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
+                  <div className="space-y-3">
+                    <h3 className="text-3xl md:text-4xl text-coffee-dark font-serif font-bold leading-tight">{product.title}</h3>
+                    <p className="text-coffee-accent text-base md:text-lg font-semibold tracking-wide uppercase">{product.tagline}</p>
                   </div>
-                  
-                  <div className="bg-coffee-cream/50 p-6 rounded-lg mt-6">
-                    <h4 className="font-bold text-coffee-dark mb-4 flex items-center">
-                      <Coffee size={20} className="mr-2" aria-hidden="true" /> 
+
+                  <p className="text-coffee-dark/80 leading-relaxed text-base md:text-lg">{product.description}</p>
+
+                  <div className="bg-gradient-to-br from-coffee-cream/70 to-coffee-cream/50 p-7 rounded-2xl border-l-4 border-coffee-accent shadow-lg hover:shadow-xl transition-all duration-300">
+                    <h4 className="font-serif text-coffee-dark text-xl mb-4 flex items-center gap-3">
+                      <span className="inline-block w-8 h-1 bg-coffee-accent rounded-full"></span>
+                      The Story Behind Our Coffee
+                    </h4>
+                    <p className="text-coffee-dark/75 italic text-sm md:text-base leading-relaxed">{product.story}</p>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-white to-coffee-cream/50 p-7 rounded-2xl mt-8 shadow-xl border-2 border-coffee-accent/20 hover:border-coffee-accent/50 transition-all duration-300">
+                    <h4 className="font-bold text-coffee-dark mb-6 flex items-center text-xl">
+                      <Coffee size={24} className="mr-3 text-coffee-accent" aria-hidden="true" />
                       What Makes It Special
                     </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                       {product.features.map((feature, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <span className="bg-coffee-accent rounded-full p-1 mt-1" aria-hidden="true">
-                            <Check size={16} className="text-coffee-dark" />
+                        <div key={i} className="flex items-start gap-4 p-3 rounded-lg hover:bg-coffee-cream/30 transition-colors duration-200 group/feature">
+                          <span className="bg-gradient-to-br from-coffee-accent to-coffee-light rounded-full p-2 mt-0.5 shadow-md group-hover/feature:scale-110 transition-transform duration-300 flex-shrink-0" aria-hidden="true">
+                            <Check size={18} className="text-coffee-dark" />
                           </span>
-                          <div>
-                            <h5 className="font-bold text-coffee-dark mb-1">{feature.title}</h5>
-                            <p className="text-sm text-coffee-dark/70">{feature.description}</p>
+                          <div className="flex-1">
+                            <h5 className="font-bold text-coffee-dark mb-1.5 text-sm md:text-base">{feature.title}</h5>
+                            <p className="text-xs md:text-sm text-coffee-dark/70 leading-relaxed">{feature.description}</p>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
-                  
-                  <Button 
-                    size="lg" 
-                    className="bg-coffee-accent hover:bg-coffee-light text-coffee-dark font-medium mt-6 px-8 py-6"
-                  >
-                    <a 
-                      href={product.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
-                      aria-label={`Buy ${product.title} on Amazon`}
+
+                  <div className="pt-4">
+                    <Button
+                      size="lg"
+                      className="w-full md:w-auto bg-gradient-to-r from-coffee-accent via-coffee-light to-coffee-accent hover:from-coffee-light hover:via-coffee-accent hover:to-coffee-light text-coffee-dark font-bold text-lg px-10 py-7 shadow-2xl hover:shadow-coffee-accent/50 transition-all duration-300 transform hover:scale-105 rounded-xl"
                     >
-                      Buy on Amazon
-                    </a>
-                  </Button>
+                      <a
+                        href={product.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-3 w-full"
+                        aria-label={`Buy ${product.title} on Amazon`}
+                      >
+                        <span>Buy on Amazon</span>
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M17.5 21L23 12 17.5 3h-11L1 12l5.5 9h11z"/>
+                          <path d="M9 19l4-7-4-7"/>
+                        </svg>
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </AnimatedSection>
             </div>

@@ -56,8 +56,14 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-coffee-dark text-coffee-cream py-12 px-6" role="contentinfo">
-      <div className="container-wide">
+    <footer className="bg-gradient-to-br from-coffee-dark via-[#3a2a24] to-coffee-dark text-coffee-cream py-12 px-6 relative overflow-hidden" role="contentinfo">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-coffee-accent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-coffee-light rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container-wide relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
@@ -74,29 +80,29 @@ const Footer: React.FC = () => {
               Premium instant coffee crafted to preserve the rich, complex flavors of freshly brewed coffee.
             </p>
             <div className="flex gap-4">
-              <a 
-                href="https://www.instagram.com/_brewlyours" 
-                target="_blank" 
+              <a
+                href="https://www.instagram.com/_brewlyours"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-coffee-beige/80 hover:text-coffee-accent transition-colors p-2"
+                className="text-coffee-beige/80 hover:text-coffee-accent transition-all duration-300 p-2 hover:bg-coffee-accent/10 rounded-full transform hover:scale-110"
                 aria-label="Follow us on Instagram"
               >
                 <Instagram size={24} aria-hidden="true" />
               </a>
-              <a 
-                href="https://www.facebook.com/people/Brewlyours-India/61555444964865/" 
-                target="_blank" 
+              <a
+                href="https://www.facebook.com/people/Brewlyours-India/61555444964865/"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-coffee-beige/80 hover:text-coffee-accent transition-colors p-2"
+                className="text-coffee-beige/80 hover:text-coffee-accent transition-all duration-300 p-2 hover:bg-coffee-accent/10 rounded-full transform hover:scale-110"
                 aria-label="Follow us on Facebook"
               >
                 <Facebook size={24} aria-hidden="true" />
               </a>
-              <a 
-                href="https://x.com/pirated_jat" 
-                target="_blank" 
+              <a
+                href="https://x.com/pirated_jat"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-coffee-beige/80 hover:text-coffee-accent transition-colors p-2"
+                className="text-coffee-beige/80 hover:text-coffee-accent transition-all duration-300 p-2 hover:bg-coffee-accent/10 rounded-full transform hover:scale-110"
                 aria-label="Follow us on X"
               >
                 <svg 
@@ -147,11 +153,11 @@ const Footer: React.FC = () => {
                   placeholder="Your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-coffee-dark/50 border-coffee-beige/30 text-coffee-cream placeholder:text-coffee-beige/50"
+                  className="bg-coffee-dark/50 border-2 border-coffee-beige/30 text-coffee-cream placeholder:text-coffee-beige/50 focus:border-coffee-accent transition-all"
                   aria-label="Email for newsletter"
                   required
                 />
-                <Button type="submit" className="bg-coffee-accent hover:bg-coffee-light text-coffee-dark">
+                <Button type="submit" className="bg-gradient-to-r from-coffee-accent to-coffee-light hover:from-coffee-light hover:to-coffee-accent text-coffee-dark shadow-lg hover:shadow-xl transition-all duration-300">
                   <ArrowRight size={18} />
                 </Button>
               </form>

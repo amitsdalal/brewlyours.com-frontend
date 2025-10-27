@@ -205,12 +205,12 @@ const Index: React.FC = () => {
 
       {/* Sticky Buy Now button for mobile */}
       {isMobile && showStickyButton && (
-        <div className="fixed bottom-5 left-0 right-0 z-40 px-4 flex justify-center">
-          <Button 
-            size="lg" 
-            className="bg-coffee-accent hover:bg-coffee-light text-coffee-dark font-medium shadow-lg w-full max-w-xs py-4 text-base"
+        <div className="fixed bottom-5 left-0 right-0 z-40 px-4 flex justify-center animate-[slideUp_0.3s_ease-out]">
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-coffee-accent to-coffee-light hover:from-coffee-light hover:to-coffee-accent text-coffee-dark font-semibold shadow-2xl hover:shadow-coffee-accent/40 w-full max-w-xs py-4 text-base transition-all duration-300 transform hover:scale-105"
           >
-            <a 
+            <a
               href="https://www.amazon.in/Brewlyours-Instant-Freshly-Roasted-Energizing/dp/B0DSFBF12G/"
               target="_blank"
               rel="noopener noreferrer"
@@ -224,9 +224,9 @@ const Index: React.FC = () => {
 
       {/* Back to Top Button */}
       {showBackToTop && (
-        <button 
+        <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-20 right-5 z-40 bg-coffee-accent hover:bg-coffee-light text-coffee-dark p-3 rounded-full shadow-lg"
+          className="fixed bottom-20 right-5 z-40 bg-gradient-to-br from-coffee-accent to-coffee-light hover:from-coffee-light hover:to-coffee-accent text-coffee-dark p-3 rounded-full shadow-2xl hover:shadow-coffee-accent/40 transition-all duration-300 transform hover:scale-110 animate-[slideUp_0.3s_ease-out]"
           aria-label="Back to top"
         >
           <ArrowUp size={24} />
